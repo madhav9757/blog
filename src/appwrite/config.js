@@ -1,4 +1,3 @@
-import { asyncThunkCreator } from "@reduxjs/toolkit";
 import conf from "../conf/conf.js";
 import { Client, Account, ID, Databases, Storage, Query } from "appwrite";
 
@@ -7,6 +6,7 @@ export class services {
     client = new Client;
     databases;
     bucket;
+
     constructor() {
         this.client
             .setEndpoint(conf.appwriteUrl)
@@ -15,7 +15,7 @@ export class services {
         this.bucket = new Storage(this.client);
     }
 
-    async createPost({ title, slug, content, featuredImage, status, userID }) {
+    async createPost({ title, slug, content, featuredImage, status, userId }) {
         try {
             return await this.databases.createDocument(
                 conf.appwriteDatabaseID,
@@ -26,14 +26,14 @@ export class services {
                     content,
                     featuredImage,
                     status,
-                    userID
+                    userId
                 })
         } catch (error) {
-            console.log(error);
+            console.log("Appwrite serive :: createPost :: error", error);
         }
     }
 
-    async updatePost(slug, { title, content, featuredImage, status, userID }) {
+    async updatePost(slug, { title, content, featuredImage, status }) {
         try {
             return await this.databases.updateDocument(
                 conf.appwriteDatabaseID,
@@ -47,7 +47,7 @@ export class services {
                 },
             )
         } catch (error) {
-            throw error
+            console.log("Appwrite serive :: updatePost :: error", error);
         }
     }
 
@@ -57,35 +57,40 @@ export class services {
                 conf.appwriteDatabaseID,
                 conf.appwriteCollectionID,
                 slug
-            );
+            )
             return true;
         } catch (error) {
-            throw error
+            console.log("Appwrite serive :: deletePost :: error", error);
             return false;
         }
     }
 
-    async getPost(slug) {
+    async getPost(slug){
         try {
             return await this.databases.getDocument(
                 conf.appwriteDatabaseID,
                 conf.appwriteCollectionID,
                 slug
-            );
+            
+            )
         } catch (error) {
-            throw error
+            console.log("Appwrite serive :: getPost :: error", error);
+            return false
         }
     }
 
-    async getPosts(queries = [Query.equal("status", "active")]) {
+    async getPosts(queries = [Query.equal("status", "active")]){
         try {
             return await this.databases.listDocuments(
                 conf.appwriteDatabaseID,
                 conf.appwriteCollectionID,
-                queries
-            );
+                queries,
+                
+
+            )
         } catch (error) {
-            throw error
+            console.log("Appwrite serive :: getPosts :: error", error);
+            return false
         }
     }
 
@@ -106,10 +111,10 @@ export class services {
     async deleteFile(fileID) {
         try {
             await this.bucket.deleteFile(
-                conf.appwriteBucketID, 
+                conf.appwriteBucketID,
                 fileID
             );
-            return true ;
+            return true;
         } catch (error) {
             throw error
             return false
@@ -117,7 +122,7 @@ export class services {
     }
 
     getFilePreview(fileID) {
-        return this.bucket,this.getFilePreview(
+        return this.bucket, this.getFilePreview(
             conf.appwriteBucketID,
             fileID
         )
