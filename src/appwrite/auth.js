@@ -21,7 +21,7 @@ export class AuthService {
             if (user) {
                 return this.login({ email, password });
             } else {
-                return user ;
+                return user;
             }
 
         } catch (error) {
@@ -41,15 +41,18 @@ export class AuthService {
         try {
             return await this.account.get();
         } catch (err) {
-            console.log("Appwrite serive :: getCurrentUser :: error", err);
+            if (err.message.includes("missing scope (account)")) {
+                console.log("User is not authorized. Please log in.");
+            } else {
+                console.log("Appwrite service :: getCurrentUser :: error", err);
+            }
         }
-
         return null;
     }
 
     async logout() {
         try {
-             await account.deleteSessions()
+            await account.deleteSessions()
         } catch (error) {
             console.log("Appwrite serive :: logout :: error", error);
         }

@@ -14,8 +14,10 @@ function App() {
     authService.getCurrentUser()
       .then((userData) => {
         if (userData) {
+          console.log("User Data:", userData);
           dispatch(login({ userData }));
         } else {
+          console.log("No user data, dispatching logout.");   
           dispatch(logout());
         }
       })
@@ -24,7 +26,7 @@ function App() {
           console.error("Appwrite service :: getCurrentUser :: unexpected error :: ", error);
         } else {
         }
-        dispatch(logout()); 
+        dispatch(logout());
       })
       .finally(() => setLoading(false));
   }, []);
