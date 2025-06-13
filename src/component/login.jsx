@@ -95,13 +95,29 @@ function Login() {
         setError("")
         try {
             const session = await authService.login(data)
+            console.log("1. Appwrite login session:", session); // CHECK THIS
+
             if (session) {
                 const userData = await authService.getCurrentUser()
-                if (userData) dispatch(authLogin(userData));
-                navigate("/")
+                console.log("2. User data from authService.getCurrentUser():", userData); // CHECK THIS
+
+                // If userData is falsy, this block will not execute
+                if (userData) {
+                    dispatch(authLogin({ userData })); // Ensure you're dispatching an object with a 'userData' property
+                    console.log("3. Dispatched userData to Redux."); // CHECK THIS
+                    navigate("/")
+                } else {
+                    // This else block will execute if getCurrentUser returns null/undefined
+                    setError("Failed to retrieve user data after successful login.");
+                    console.error("User data was null or undefined after login.");
+                }
+            } else {
+                setError("Login failed: Appwrite session was not returned.");
+                console.error("Appwrite session was null or undefined.");
             }
         } catch (error) {
             setError(error.message)
+            console.error("Login error:", error); // Log any caught errors
         }
     }
 
