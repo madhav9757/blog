@@ -7,135 +7,198 @@ import { useSelector } from "react-redux";
 import styled from 'styled-components';
 
 const PostDetailPageWrapper = styled.div`
-    padding: 40px 0; /* More vertical padding */
-    background-color: #f8f8f8; /* Light gray background for the whole page */
-    min-height: calc(100vh - var(--header-height, 60px) - var(--footer-height, 100px)); /* Adjust based on your header/footer heights */
-    font-family: 'Merriweather', 'Georgia', serif; /* A more traditional serif font for content */
+  padding: 60px 20px;
+  background: linear-gradient(to bottom right, #f8fafc, #e2e8f0);
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  color: #1e293b;
 `;
-
 const ImageContainerWrapper = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 32px; /* More space below image */
-    position: relative;
-    background-color: #ffffff; /* White background for the image section */
-    border-radius: 16px; /* Larger border-radius */
-    padding: 20px; /* More padding inside the image container */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Clearer shadow for this section */
-    overflow: hidden; /* Ensures rounded corners on image */
+  max-width: 900px;
+  margin: 0 auto 40px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  padding: 0;
+  position: relative;
 `;
-
 const PostImage = styled.img`
-    border-radius: 12px;
-    max-width: 100%;
-    height: auto;
-    display: block;
-    object-fit: contain; /* Ensure entire image is visible, no cropping */
-    max-height: 400px; /* Limit height for large images on detail page */
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  display: block;
 `;
-
 const ActionsContainer = styled.div`
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    display: flex;
-    gap: 10px; /* Slightly less space between buttons */
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
 
-    @media (max-width: 768px) {
-        position: static; /* Stack buttons normally on small screens */
-        justify-content: flex-end; /* Align buttons to the right */
-        margin-top: 20px;
-        margin-right: 10px;
-    }
+  @media (max-width: 768px) {
+    flex-direction: column;
+    right: 10px;
+    top: 10px;
+  }
 `;
-
 const ButtonLink = styled(Link)`
-    text-decoration: none;
+  text-decoration: none;
 `;
-
 const PostTitleWrapper = styled.div`
-    width: 100%;
-    margin-bottom: 32px; /* More space below title */
-    text-align: center; /* Center the title */
+  text-align: center;
+  margin-bottom: 30px;
 `;
 
 const PostTitle = styled.h1`
-    font-family: 'Montserrat', 'Arial', sans-serif; /* Stronger, more modern sans-serif for titles */
-    font-size: 2.8rem; /* Larger, more impactful title */
-    font-weight: 800; /* Extra bold */
-    line-height: 1.1;
-    color: #222222; /* Very dark gray for strong contrast */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.05); /* Very subtle text shadow */
+  font-size: 2.75rem;
+  font-weight: 900;
+  color: #0f172a;
+  margin-bottom: 0.25rem;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+`;
+const PostContent = styled.div`
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  max-width: 850px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #334155;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+    font-size: 1rem;
+  }
+
+  p {
+    margin-bottom: 1.5rem;
+  }
+
+  img {
+    max-width: 100%;
+    margin: 2rem auto;
+    border-radius: 12px;
+    display: block;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  }
+
+  h1, h2, h3 {
+    font-weight: 700;
+    color: #0f172a;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  blockquote {
+    padding-left: 1rem;
+    border-left: 4px solid #94a3b8;
+    color: #475569;
+    font-style: italic;
+    margin: 1.5rem 0;
+  }
+
+  code, pre {
+    background: #f1f5f9;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    font-family: monospace;
+    color: #1e293b;
+  }
+`;
+const PostCardWrapper = styled.div`
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  color: #1e293b;
+
+  @media (max-width: 768px) {
+    padding: 25px;
+  }
+
+  img {
+    width: 100%;
+    border-radius: 12px;
+    max-height: 500px;
+    object-fit: cover;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 24px;
 
     @media (max-width: 768px) {
-        font-size: 2rem;
+      flex-direction: column;
+      align-items: center;
     }
-`;
+  }
 
-const PostContent = styled.div`
-    background-color: #ffffff; /* White background for content */
-    padding: 30px; /* Generous padding for content */
-    border-radius: 16px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06); /* Soft shadow for content block */
-    line-height: 1.8; /* Improved line height for readability */
-    color: #444444; /* Softer text color for body */
-    font-size: 1.1rem; /* Slightly larger body font size */
-    font-family: 'Merriweather', 'Georgia', serif; /* Consistent serif font for content */
+    .content {
+    max-width: 750px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    text-align: left;
 
     p {
-        margin-bottom: 1em;
+      margin-bottom: 1.25rem;
     }
+
     img {
-        max-width: 100%;
-        height: auto;
-        display: block;
-        margin: 1.5em auto; /* Center images and give vertical space */
-        border-radius: 8px; /* Soft corners for embedded images */
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Subtle shadow for embedded images */
+      display: block;
+      margin: 2rem auto;
+      max-width: 100%;
+      border-radius: 8px;
     }
-    h1, h2, h3, h4, h5, h6 {
-        font-family: 'Montserrat', 'Arial', sans-serif;
-        margin-top: 1.8em; /* More space above headings */
-        margin-bottom: 0.8em;
-        font-weight: 700;
-        color: #333333;
+
+    h2, h3 {
+      margin-top: 2rem;
+      font-weight: 700;
+      color: #0f172a;
     }
-    h1 { font-size: 2em; }
-    h2 { font-size: 1.7em; }
-    h3 { font-size: 1.4em; }
-    ul, ol {
-        margin-left: 25px; /* Indent lists */
-        margin-bottom: 1em;
-        list-style-type: disc; /* Default list style */
-    }
-    strong {
-        font-weight: 700;
-        color: #222222;
-    }
+
     a {
-        color: #007bff; /* A nice blue for links */
-        text-decoration: underline;
-        &:hover {
-            color: #0056b3; /* Darker blue on hover */
-        }
+      color: #2563eb;
+      text-decoration: underline;
     }
+
     blockquote {
-        border-left: 4px solid #cccccc;
-        padding-left: 15px;
-        margin: 1em 0;
-        font-style: italic;
-        color: #666666;
+      border-left: 4px solid #94a3b8;
+      padding-left: 1rem;
+      color: #475569;
+      font-style: italic;
     }
-    pre {
-        background-color: #f0f0f0;
-        padding: 15px;
-        border-radius: 8px;
-        overflow-x: auto; /* For code blocks */
-        font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
-        font-size: 0.9em;
+
+    code {
+      background: #f1f5f9;
+      padding: 0.3rem 0.5rem;
+      border-radius: 6px;
+      font-family: monospace;
     }
+  }
 `;
+
 
 export default function Post() {
     const [post, setPost] = useState(null);
@@ -172,32 +235,31 @@ export default function Post() {
     return post ? (
         <PostDetailPageWrapper>
             <Container>
-                <ImageContainerWrapper>
-                    <PostImage
+                <PostCardWrapper>
+                    <img
                         src={appwriteService.getFilePreview(post.featuredImage)}
                         alt={post.title}
                     />
 
+                    <h1>{post.title}</h1>
+
                     {isAuthor && (
-                        <ActionsContainer>
+                        <div className="actions">
                             <ButtonLink to={`/edit-post/${post.$id}`}>
-                                <Button bgColor="green-500" className="mr-3"> {/* Assuming Button accepts color name */}
-                                    Edit
-                                </Button>
+                                <Button bgColor="green-500">Edit</Button>
                             </ButtonLink>
-                            <Button bgColor="red-500" onClick={deletePost}> {/* Assuming Button accepts color name */}
+                            <Button bgColor="red-500" onClick={deletePost}>
                                 Delete
                             </Button>
-                        </ActionsContainer>
+                        </div>
                     )}
-                </ImageContainerWrapper>
-                <PostTitleWrapper>
-                    <PostTitle>{post.title}</PostTitle>
-                </PostTitleWrapper>
-                <PostContent>
-                    {parse(post.content)}
-                </PostContent>
+
+                    <div className="content">
+                        {parse(post.content)}
+                    </div>
+                </PostCardWrapper>
             </Container>
+
         </PostDetailPageWrapper>
     ) : null;
 }
