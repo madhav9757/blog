@@ -1,27 +1,26 @@
-/* App.css */
+/* Ensure full height layout */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+/* Top-level flex container */
 .app-wrapper {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
+}
+
+/* Optional wrapper inside */
+.content-wrapper {
+  flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-.app-main-content {
-  flex-grow: 1;
-  padding: 20px;
-}
-
-.loading-screen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  font-size: 1.5rem;
-  color: #333;
-}
-
-body,
-html {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Main content area fills vertical space */
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  background-color: #EDF2F7;
 }

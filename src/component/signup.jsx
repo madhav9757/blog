@@ -147,7 +147,7 @@ function Signup() {
                                 required: true,
                             })}
                         />
-                        <Button type="submit" className="w-full"> {/* Assuming Button handles w-full */}
+                        <Button type="submit" > {/* Assuming Button handles w-full */}
                             Create Account
                         </Button>
                     </FormFields>

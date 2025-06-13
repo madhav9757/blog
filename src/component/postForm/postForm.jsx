@@ -78,35 +78,54 @@ export default function PostForm({ post }) {
     const userData = useSelector((state) => state.auth.userData);
 
     const submit = async (data) => {
-        if (post) {
-            const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
+    if (post) {
+        console.log("Updating existing post...");
+        console.log("Form data:", data);
 
-            if (file) {
-                appwriteService.deleteFile(post.featuredImage);
-            }
+        const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
+        console.log("Uploaded file (if any) for update:", file);
 
-            const dbPost = await appwriteService.updatePost(post.$id, {
-                ...data,
-                featuredImage: file ? file.$id : undefined,
-            });
+        if (file) {
+            console.log("Deleting old featured image:", post.featuredImage);
+            appwriteService.deleteFile(post.featuredImage);
+        }
+
+        const dbPost = await appwriteService.updatePost(post.$id, {
+            ...data,
+            featuredImage: file ? file.$id : undefined,
+        });
+        console.log("Updated dbPost:", dbPost);
+
+        if (dbPost) {
+            console.log("Navigating to:", `/post/${dbPost.$id}`);
+            navigate(`/post/${dbPost.$id}`);
+        } else {
+            console.error("Failed to update post in Appwrite.");
+        }
+    } else {
+        console.log("Creating new post...");
+        console.log("Form data:", data);
+
+        const file = await appwriteService.uploadFile(data.image[0]);
+        console.log("Uploaded file for new post:", file);
+
+        if (file) {
+            data.featuredImage = file.$id;
+            console.log("Data before creating post:", data);
+            const dbPost = await appwriteService.createPost({ ...data, userID: userData.$id });
+            console.log("Created dbPost:", dbPost);
 
             if (dbPost) {
+                console.log("Navigating to:", `/post/${dbPost.$id}`);
                 navigate(`/post/${dbPost.$id}`);
+            } else {
+                console.error("Failed to create post in Appwrite.");
             }
         } else {
-            const file = await appwriteService.uploadFile(data.image[0]);
-
-            if (file) {
-                const fileId = file.$id;
-                data.featuredImage = fileId;
-                const dbPost = await appwriteService.createPost({ ...data, userId: userData.$id });
-
-                if (dbPost) {
-                    navigate(`/post/${dbPost.$id}`);
-                }
-            }
+            console.error("Failed to upload featured image for new post.");
         }
-    };
+    }
+};
 
     const slugTransform = useCallback((value) => {
         if (value && typeof value === "string")
@@ -175,7 +194,7 @@ export default function PostForm({ post }) {
                         {...register("status", { required: true })}
                     />
                 </InputSpacing>
-                <Button type="submit" bgColor={post ? "green-500" : "blue-600"} className="w-full">
+                <Button type="submit">
                     {post ? "Update" : "Submit"}
                 </Button>
             </SideContentArea>

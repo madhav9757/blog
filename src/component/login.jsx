@@ -141,7 +141,7 @@ function Login() {
                                 required: true,
                             })}
                         />
-                        <Button type="submit" className="w-full">
+                        <Button type="submit">
                             Sign in
                         </Button>
                     </FormFields>

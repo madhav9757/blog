@@ -17,8 +17,7 @@ function App() {
           console.log("User Data:", userData);
           dispatch(login({ userData }));
         } else {
-          console.log("No user data, dispatching logout.");   
-          dispatch(logout());
+          console.log("No user data, dispatching logout.");
         }
       })
       .catch((error) => {
@@ -32,12 +31,15 @@ function App() {
   }, []);
 
   return !loading ? (
-    <div>
-      <header />
-      <main>
-        TODO:  <Outlet />
-      </main>
-      <footer />
+    <div className='app-wrapper'> {/* <--- Using a custom class name */}
+      <div className='content-wrapper'> {/* <--- Using a custom class name */}
+        <Header />
+        <main className="main-content">
+          {/* TODO: Add proper styling for the main content area if needed */}
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
     </div>
   ) : null
 }

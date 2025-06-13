@@ -5,28 +5,27 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components';
 
-function Header() {
 
-    const AppHeader = styled.header`
+const AppHeader = styled.header`
     padding-top: 12px;
     padding-bottom: 12px;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     background-color: #6B7280;
 `;
 
-    const NavBar = styled.nav`
+const NavBar = styled.nav`
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
 `;
 
-    const LogoWrapper = styled.div`
+const LogoWrapper = styled.div`
     margin-right: 16px;
     flex-shrink: 0;
 `;
 
-    const NavItemsList = styled.ul`
+const NavItemsList = styled.ul`
     display: flex;
     margin-left: auto;
     list-style: none;
@@ -35,7 +34,7 @@ function Header() {
     margin-bottom: 0;
 `;
 
-    const NavButton = styled.button`
+const NavButton = styled.button`
     display: inline-block;
     padding-left: 24px;
     padding-right: 24px;
@@ -57,6 +56,9 @@ function Header() {
 `;
 
 
+
+
+function Header() {
     const authStatus = useSelector((state) => state.auth.status)
     const navigate = useNavigate()
 
@@ -89,7 +91,7 @@ function Header() {
     ]
 
 
-   
+
     return (
         <AppHeader>
             <Container>

@@ -41,10 +41,10 @@ export class AuthService {
         try {
             return await this.account.get();
         } catch (err) {
-            if (err.message.includes("missing scope (account)")) {
-                console.log("User is not authorized. Please log in.");
+            if (err.code === 401) {
+                console.error("User not authenticated.");
             } else {
-                console.log("Appwrite service :: getCurrentUser :: error", err);
+                console.log("Unexpected error occurred", err);
             }
         }
         return null;
@@ -52,7 +52,7 @@ export class AuthService {
 
     async logout() {
         try {
-            await account.deleteSessions()
+            await this.account.deleteSessions()
         } catch (error) {
             console.log("Appwrite serive :: logout :: error", error);
         }

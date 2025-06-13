@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'; 
-import { Container, PostCard } from '../component';
+import { Container, PostForm } from '../component';
 
 
 const AddPostPageWrapper = styled.div`
