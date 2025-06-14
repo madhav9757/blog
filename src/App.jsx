@@ -5,6 +5,7 @@ import authService from './appwrite/auth'
 import { login, logout } from './store/authSlice'
 import { Outlet } from 'react-router-dom'
 import { Footer, Header } from './component'
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -32,6 +33,7 @@ function App() {
 
   return !loading ? (
     <div className='app-wrapper'> {/* <--- Using a custom class name */}
+      <Toaster position="top-right" reverseOrder={false} />
       <div className='content-wrapper'> {/* <--- Using a custom class name */}
         <Header />
         <main className="main-content">

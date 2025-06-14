@@ -6,9 +6,12 @@ import styled from 'styled-components';
 
 // Styled Components
 const AppHeader = styled.header`
-  padding: 12px 0;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
-  background-color: #1f2937; // dark gray
+   padding: 12px 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  background-color: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 `;
 
 const NavBar = styled.nav`
@@ -33,21 +36,20 @@ const NavItemsList = styled.ul`
 `;
 
 const NavButton = styled.button`
-  display: inline-block;
-  padding: 8px 20px;
+  padding: 10px 16px;
   border-radius: 9999px;
-  font-size: 1rem;
-  line-height: 1.5;
-  background-color: transparent;
-  color: ${(props) => (props.$active ? '#60a5fa' : '#f8fafc')};
-  font-weight: ${(props) => (props.$active ? 'bold' : 'normal')};
-  border: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  background-color: ${(props) => (props.$active ? '#e0f2fe' : 'transparent')};
+  color: ${(props) => (props.$active ? '#0284c7' : '#1e293b')};
+  border: 1px solid transparent;
   cursor: pointer;
-  transition: background-color 200ms ease, color 200ms ease;
+  transition: all 0.2s ease;
 
   &:hover {
-    background-color: #dbeafe;
-    color: #1e40af;
+    background-color: #f0f9ff;
+    color: #0369a1;
+    border-color: #bae6fd;
   }
 `;
 

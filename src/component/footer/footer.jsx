@@ -1,17 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
+import { FaGithub, FaTwitter, FaLinkedin } from 'react-icons/fa';
 
 const FooterWrapper = styled.footer`
-  background-color: #0f172a; // deep navy like Vercel/GitHub
+  background-color: #0f172a;
   color: #cbd5e1;
-  padding: 60px 30px 40px;
+  padding: 40px 20px 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 `;
 
 const FooterContainer = styled.div`
   max-width: 1200px;
-  margin: 0 auto;
+  margin: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 40px;
 `;
 
@@ -20,17 +22,16 @@ const LogoSection = styled.div`
 `;
 
 const LogoText = styled.h2`
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: #38bdf8;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 `;
 
 const Description = styled.p`
   font-size: 0.9rem;
   color: #94a3b8;
-  line-height: 1.6;
-  max-width: 400px;
+  line-height: 1.5;
 `;
 
 const FooterSection = styled.div`
@@ -41,7 +42,7 @@ const FooterSection = styled.div`
 const SectionTitle = styled.h4`
   font-size: 1rem;
   font-weight: 600;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   color: #e2e8f0;
 `;
 
@@ -54,17 +55,33 @@ const FooterLink = styled.a`
 
   &:hover {
     color: #38bdf8;
-    transform: translateX(4px);
+    transform: translateX(3px);
   }
 `;
 
-const Copyright = styled.div`
-  text-align: center;
-  padding-top: 30px;
-  font-size: 0.8rem;
-  color: #64748b;
-  border-top: 1px solid #1e293b;
+const BottomBar = styled.div`
   margin-top: 40px;
+  border-top: 1px solid #1e293b;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+`;
+
+const SocialLinks = styled.div`
+  display: flex;
+  gap: 16px;
+
+  a {
+    color: #cbd5e1;
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #38bdf8;
+    }
+  }
 `;
 
 function Footer() {
@@ -74,8 +91,7 @@ function Footer() {
         <LogoSection>
           <LogoText>DevUI</LogoText>
           <Description>
-            Build beautiful and blazing-fast UIs with DevUI. We help developers
-            create delightful web experiences.
+            Build beautiful and blazing-fast UIs with DevUI. We help developers create delightful web experiences.
           </Description>
         </LogoSection>
 
@@ -108,13 +124,18 @@ function Footer() {
           <FooterLink href="#">Privacy Policy</FooterLink>
           <FooterLink href="#">Terms of Service</FooterLink>
           <FooterLink href="#">Security</FooterLink>
-          <FooterLink href="#">Cookie Policy</FooterLink>
+          <FooterLink href="#">Cookies</FooterLink>
         </FooterSection>
       </FooterContainer>
 
-      <Copyright>
-        © {new Date().getFullYear()} DevUI. All rights reserved.
-      </Copyright>
+      <BottomBar>
+        <SocialLinks>
+          <a href="#"><FaGithub /></a>
+          <a href="#"><FaTwitter /></a>
+          <a href="#"><FaLinkedin /></a>
+        </SocialLinks>
+        <div>© {new Date().getFullYear()} DevUI. All rights reserved.</div>
+      </BottomBar>
     </FooterWrapper>
   );
 }

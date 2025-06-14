@@ -49,7 +49,7 @@ const FeaturedImageContainer = styled.div`
     margin-bottom: 16px; /* mb-4 */
     text-align: center; /* Center the image if it's smaller than container */
 `;
-
+    
 const FeaturedImage = styled.img`
     width: 100%;
     max-height: 200px; /* Limit height for preview */
@@ -103,7 +103,7 @@ export default function PostForm({ post }) {
                 console.error("Failed to update post in Appwrite.");
             }
         } else {
-            if (userData && userData.$id) {
+            if (userData && userData.$id) { 
                 try {
                     const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
 
@@ -113,7 +113,7 @@ export default function PostForm({ post }) {
 
                     const dbPost = await appwriteService.createPost({
                         ...data,
-                        userID: userData.$id,
+                        userID: userData.$id, 
                     });
 
                     if (dbPost) {

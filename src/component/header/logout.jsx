@@ -3,26 +3,24 @@ import { useDispatch } from 'react-redux'
 import authService from '../../appwrite/auth'
 import { logout } from '../../store/authSlice'
 import styled from 'styled-components'
+import { FiLogOut } from 'react-icons/fi';
 
 const LogoutB = styled.button`
-    display: inline-block;
-    padding-left: 24px;
-    padding-right: 24px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
-    border-radius: 9999px;
-    background-color: transparent;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    line-height: 1.5;
+    padding: 10px 16px;
+  border-radius: 9999px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  background-color: transparent;
+  color: #1e293b;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
 
-    &:hover { /* Styled Components allows pseudo-classes directly */
-        background-color: #DBEAFE;
-        color: #1E40AF;
-    }
+  &:hover {
+    background-color: #f0f9ff;
+    color: #0369a1;
+    border-color: #bae6fd;
+  }
 `;
 
 function LogoutBtn() {
@@ -33,8 +31,9 @@ function LogoutBtn() {
         })
     }
     return (
-        <LogoutB onClick={()=>logoutHandler()}>
-            LOGOUT
+        <LogoutB onClick={logoutHandler}>
+            <FiLogOut style={{ marginRight: "8px", verticalAlign: "middle" }} />
+            Logout
         </LogoutB>
     )
 }

@@ -4,8 +4,8 @@ import { Container, PostForm } from '../component';
 
 
 const AddPostPageWrapper = styled.div`
-    padding-top: 32px;    /* py-8 = 2rem = 32px */
-    padding-bottom: 32px; /* py-8 = 2rem = 32px */
+    padding-top: 20px;    /* py-8 = 2rem = 32px */
+    padding-bottom: 20px; /* py-8 = 2rem = 32px */
 `;
 
 
