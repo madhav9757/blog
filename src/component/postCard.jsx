@@ -7,61 +7,102 @@ const PostCardLink = styled(Link)`
   text-decoration: none;
   color: inherit;
   display: block;
+  height: 100%;
 `;
 
-const PostCardWrapper = styled.div`
-  max-width: 280px;
-  width: 100%;
-  margin: auto;
-  background: linear-gradient(to bottom right, #f7f7fc, #e6e9f0);
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s ease-in-out;
+const PostCardWrapper = styled.article`
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 100%;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-
+  
   &:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
   }
 `;
 
-const PostCardImageContainer = styled.div`
+const ImageWrapper = styled.div`
   width: 100%;
-  height: 140px;  /* smaller image height */
-  border-radius: 10px;
+  height: 200px;
   overflow: hidden;
-  margin-bottom: 10px;
+  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+  position: relative;
 `;
 
-const PostCardImage = styled.img`
+const PostImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
+  transition: transform 0.3s ease;
+  
+  ${PostCardWrapper}:hover & {
+    transform: scale(1.05);
+  }
 `;
 
-const PostCardTitle = styled.h3`
-  font-size: 0.95rem;
+const ContentWrapper = styled.div`
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+`;
+
+const PostTitle = styled.h3`
+  font-size: 1.125rem;
   font-weight: 600;
-  color: #222;
-  text-align: center;
-  margin-top: 6px;
+  color: #1e293b;
+  margin: 0;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const ReadMoreText = styled.span`
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.875rem;
+  color: #667eea;
+  font-weight: 500;
+  margin-top: auto;
+  padding-top: 12px;
+  transition: gap 0.2s ease;
+  
+  &::after {
+    content: '→';
+    margin-left: 6px;
+    transition: margin-left 0.2s ease;
+  }
+  
+  ${PostCardWrapper}:hover & {
+    &::after {
+      margin-left: 10px;
+    }
+  }
 `;
 
 function PostCard({ $id, title, featuredImage }) {
   return (
     <PostCardLink to={`/post/${$id}`}>
       <PostCardWrapper>
-        <PostCardImageContainer>
-          <PostCardImage
+        <ImageWrapper>
+          <PostImage
             src={appwriteService.getFilePreview(featuredImage)}
             alt={title}
+            loading="lazy"
           />
-        </PostCardImageContainer>
-        <PostCardTitle>{title}</PostCardTitle>
+        </ImageWrapper>
+        <ContentWrapper>
+          <PostTitle>{title}</PostTitle>
+          <ReadMoreText>Read more</ReadMoreText>
+        </ContentWrapper>
       </PostCardWrapper>
     </PostCardLink>
   );
