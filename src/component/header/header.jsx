@@ -4,11 +4,10 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-// Styled Components
 const AppHeader = styled.header`
-   padding: 12px 0;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-  background-color: #ffffff;
+  padding: 20px 0;
+  border-bottom: 1px solid #f0f0f0;
+  background-color: #fff;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -22,7 +21,6 @@ const NavBar = styled.nav`
 `;
 
 const LogoWrapper = styled.div`
-  margin-right: 16px;
   flex-shrink: 0;
 `;
 
@@ -36,34 +34,32 @@ const NavItemsList = styled.ul`
 `;
 
 const NavButton = styled.button`
-  padding: 10px 16px;
-  border-radius: 9999px;
-  font-size: 0.95rem;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 0.9375rem;
   font-weight: 500;
-  background-color: ${(props) => (props.$active ? '#e0f2fe' : 'transparent')};
-  color: ${(props) => (props.$active ? '#0284c7' : '#1e293b')};
-  border: 1px solid transparent;
+  background-color: ${(props) => (props.$active ? '#000' : 'transparent')};
+  color: ${(props) => (props.$active ? '#fff' : '#666')};
+  border: none;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
 
   &:hover {
-    background-color: #f0f9ff;
-    color: #0369a1;
-    border-color: #bae6fd;
+    color: ${(props) => (props.$active ? '#fff' : '#000')};
   }
 `;
 
 function Header() {
   const authStatus = useSelector((state) => state.auth.status);
   const navigate = useNavigate();
-  const location = useLocation(); // 🔍 current route
+  const location = useLocation();
 
   const navItems = [
     { name: 'Home', slug: '/', active: true },
     { name: 'Login', slug: '/login', active: !authStatus },
-    { name: 'Signup', slug: '/signup', active: !authStatus },
+    { name: 'Sign up', slug: '/signup', active: !authStatus },
     { name: 'All Posts', slug: '/all-posts', active: authStatus },
-    { name: 'Add Post', slug: '/add-post', active: authStatus },
+    { name: 'New Post', slug: '/add-post', active: authStatus },
   ];
 
   return (
@@ -72,7 +68,7 @@ function Header() {
         <NavBar>
           <LogoWrapper>
             <Link to="/">
-              <Logo width="70px" />
+              <Logo />
             </Link>
           </LogoWrapper>
           <NavItemsList>
