@@ -42,4 +42,8 @@ function Logo({ width = "auto" }) {
     );
 }
 
+<<<<<<< HEAD
 export default Logo;
+=======
+export default Logo;
+>>>>>>> a1791365c784a144adbc4c408e3fd79ffb087184
